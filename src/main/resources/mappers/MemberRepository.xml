@@ -10,24 +10,28 @@
 		regDate = NOW(),
 		updateDate = NOW(),
 		loginId = #{loginId},
-		loginPw = #{loginPw},
+		loginPw =
+		#{loginPw},
 		`name` = #{name},
 		nickname = #{nickname},
-		cellphoneNum = #{cellphoneNum},
+		cellphoneNum =
+		#{cellphoneNum},
 		email = #{email}
 	</insert>
-	
+
 	<select id="getLastInsertId" parameterType="int">
-		SELECT LAST_INSERT_ID()
+		SELECT
+		LAST_INSERT_ID()
 	</select>
-	
+
 	<select id="getMemberByNameAndEmail" parameterType="string"
 		resultType="com.example.demo.vo.Member">
 		SELECT * FROM `member`
-		WHERE `name` = #{name} 
-		AND email = #{email}
+		WHERE `name` = #{name}
+		AND email =
+		#{email}
 	</select>
-	
+
 	<select id="getMemberByLoginId" parameterType="string"
 		resultType="com.example.demo.vo.Member">
 		SELECT * FROM `member`
@@ -39,5 +43,30 @@
 		SELECT * FROM `member`
 		WHERE id = #{id}
 	</select>
+
+
+	<select id="getPointById" parameterType="int"
+		resultType="com.example.demo.vo.Member">
+		SELECT *
+		FROM `member` M
+		LEFT JOIN reactionPoint RP
+		ON M.id = RP.memberId
+		WHERE M.id = #{isLoginMemberId} AND RP.relId = #{articleId}
+	</select>
+
+
+	<insert id="getdoActionByMem" parameterType="map">
+		INSERT INTO
+		reactionPoint
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{isLoginMemberId},
+		relTypeCode = 'article',
+		relId = #{articleId},
+		`point` = #{point};
+	</insert>
+
+
+
 
 </mapper>

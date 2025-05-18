@@ -139,16 +139,17 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doIncreaseCountRd")
 	@ResponseBody
-	public String doIncreaseCountRd(HttpServletRequest req, String doAction){
+	public ResultData doIncreaseCountRd(HttpServletRequest req, int id, int point){
 		
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-		System.out.println("========================================");
-		System.out.println(rq.getIsLoginMemberId());
+		System.err.println("========================================");
+		System.err.println("로그인멤버 Id : "+rq.getIsLoginMemberId());
 		
+		ResultData doAction = memberService.getdoActionByMem(rq.getIsLoginMemberId(),id,point);
+
 		
-		
-		return Ut.f("S-1","좋아요 성공");
+		return ResultData.newData(doAction, "doAction", memberService.getPointById(rq.getIsLoginMemberId(),id));
 	}
 	
 

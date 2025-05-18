@@ -94,15 +94,15 @@
 	<div class="flex">
 		<form action="../member/doIncreaseCountRd" method="POST">
 			<div class="btns">
-			<input type="hidden" name="id" value="${article.id}" />
-				<input name="doAction" type="hidden" />
+				<input type="hidden" name="id" value="${article.id}" />
+				<input type="hidden" name="point" value=1 />
 				<button class="btn btn-ghost" type="submit">좋아요</button>
 			</div>
 		</form>
 		<form action="/" method="POST">
 			<div class="btns">
-			<input type="hidden" name="id" value="${article.id}" />
-				<input name="nonAction" type="hidden" />
+				<input type="hidden" name="id" value="${article.id}" />
+				<input type="hidden" name="point" value=-1 />
 				<button class="btn btn-ghost" type="submit">싫어요</button>
 			</div>
 		</form>

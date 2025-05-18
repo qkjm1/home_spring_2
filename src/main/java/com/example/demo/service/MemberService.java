@@ -68,4 +68,12 @@ public class MemberService {
 		return memberRepository.getMemberById(id);
 	}
 
+	public ResultData getdoActionByMem(int isLoginMemberId, int articleid, int point) {
+		return memberRepository.getdoActionByMem(isLoginMemberId, articleid, point);
+	}
+
+	public Object getPointById(int isLoginMemberId, int id) {
+		return memberRepository.getPointById(isLoginMemberId, id);
+	}
+
 }
