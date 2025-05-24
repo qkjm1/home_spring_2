@@ -5,6 +5,8 @@
 <%@ include file="../common/head.jspf"%>
 
 
+
+
 <script>
 	const params = {};
 	params.id = parseInt('${param.id }');
@@ -28,6 +30,7 @@
 
 	})
 </script>
+
 
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
@@ -55,15 +58,11 @@
 				</tr>
 				<tr>
 					<th style="text-align: center;">LIKE</th>
-					<td style="text-align: center;">${article.extra__goodReactionPoint }</td>
+					<td style="text-align: center;">${article.goodReactionPoint }</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">DISLIKE</th>
-					<td style="text-align: center;">${article.extra__badReactionPoint }</td>
-				</tr>
-				<tr>
-					<th style="text-align: center;">SUM</th>
-					<td style="text-align: center;">${article.extra__sumReactionPoint }</td>
+					<td style="text-align: center;">${article.badReactionPoint }</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">VIEWS</th>
@@ -91,21 +90,13 @@
 			</c:if>
 		</div>
 	</div>
-	<div class="flex">
-		<form action="../member/doIncreaseCountRd" method="POST">
-			<div class="btns">
-				<input type="hidden" name="id" value="${article.id}" />
-				<input type="hidden" name="point" value=1 />
-				<button class="btn btn-ghost" type="submit">좋아요</button>
-			</div>
-		</form>
-		<form action="/" method="POST">
-			<div class="btns">
-				<input type="hidden" name="id" value="${article.id}" />
-				<input type="hidden" name="point" value=-1 />
-				<button class="btn btn-ghost" type="submit">싫어요</button>
-			</div>
-		</form>
+	<div>${rq.currentUri}</div>
+
+	<div class="mx-20 flex">
+		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
+			class="btn btn-outline btn-success">👍 LIKE</a>
+		<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
+			class="btn btn-outline btn-error">👎 DISLIKE</a>
 	</div>
 </section>
 </body>

@@ -151,9 +151,7 @@
 		SELECT A.*,
 		M.nickname AS extra__writer,
 		B.name AS this__board,
-		IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
-		IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)),0) AS extra__goodReactionPoint,
-		IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)),0) AS extra__badReactionPoint
+		IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint
 		FROM article A
 		LEFT JOIN reactionPoint AS RP
 		ON A.id = RP.relId AND RP.relTypeCode = 'article'
@@ -171,12 +169,8 @@
 		resultType="com.example.demo.vo.Article">
 		SELECT A.*,
 		M.nickname AS extra__writer,
-		B.name AS
-		this__board,
-		IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
-		IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)),0) AS
-		extra__goodReactionPoint,
-		IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)),0) AS extra__badReactionPoint
+		B.name AS this__board,
+		IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint
 		FROM
 		article A
 		LEFT JOIN reactionPoint AS RP
@@ -211,7 +205,7 @@
 			</choose>
 		</if>
 		GROUP BY A.id
-		ORDER BY id DESC
+		ORDER BY A.id DESC
 		<if test="limitForm >= 0">
 			LIMIT #{limitForm},#{limitTake}
 		</if>

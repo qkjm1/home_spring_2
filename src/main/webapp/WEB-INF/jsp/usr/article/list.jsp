@@ -62,8 +62,8 @@
 						<td style="text-align: center;">${article.extra__writer }</td>
 						<td style="text-align: center;">${article.hitCount }</td>
 						<td style="text-align: center;">${article.extra__sumReactionPoint }</td>
-						<td style="text-align: center;">${article.extra__goodReactionPoint }</td>
-						<td style="text-align: center;">${article.extra__badReactionPoint }</td>
+						<td style="text-align: center;">${article.goodReactionPoint }</td>
+						<td style="text-align: center;">${article.badReactionPoint }</td>
 					</tr>
 				</c:forEach>
 			</tbody>

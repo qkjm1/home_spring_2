@@ -137,7 +137,7 @@ public class UsrMemberController {
 	}
 	
 	
-	@RequestMapping("/usr/member/doIncreaseCountRd")
+	@RequestMapping("/usr/member/doIncreaseDoActionRd")
 	@ResponseBody
 	public ResultData doIncreaseCountRd(HttpServletRequest req, int id, int point){
 		

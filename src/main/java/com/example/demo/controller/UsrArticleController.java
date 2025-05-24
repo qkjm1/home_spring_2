@@ -43,8 +43,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/modify")
 	public String showModify(HttpServletRequest req, Model model, int id) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-
 		Article article = articleService.getForPrintArticle(rq.getIsLoginMemberId(), id);
 
 		if (article == null) {
@@ -59,8 +57,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
 
 		Article article = articleService.getArticleById(id);
 
@@ -87,8 +83,6 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
@@ -111,7 +105,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
 
 		Article article = articleService.getForPrintArticle(rq.getIsLoginMemberId(), id);
 
@@ -129,7 +122,6 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doWrite(HttpServletRequest req, String title, String body, String boardId) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (Ut.isEmptyOrNull(title)) {
 			return Ut.jsHistoryBack("F-1", "제목을 입력하세요");
@@ -158,7 +150,6 @@ public class UsrArticleController {
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) throws IOException {
 
-		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (boardId != 0) {
 			Board board = boardService.getBoardById(boardId);
@@ -193,6 +184,7 @@ public class UsrArticleController {
 		return "usr/article/list";
 	}
 
+	// 조회수
 	@RequestMapping("/usr/article/doIncreaseHitCountRd")
 	@ResponseBody
 	public ResultData doIncreaseHitCount(int id) {

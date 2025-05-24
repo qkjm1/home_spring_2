@@ -19,14 +19,14 @@ public class Article {
 	private String title;
 	private String body;
 	private int hitCount;
+	private int goodReactionPoint;
+	private int badReactionPoint;
+	
 
 	private String extra__writer;
 	private String this__board;
 	private boolean userCanModify; // 수정가능한 유저인지
 	private boolean userCanDelete; // 삭제가능한 유저인지
 	
-	
-	private String extra__goodReactionPoint;  // 좋아
-	private String extra__badReactionPoint;	  //싫어
-	private String extra__sumReactionPoint;   //둘다 총합
+	private int extra__sumReactionPoint;
 }
