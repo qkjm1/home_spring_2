@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.interceptor.BeforeActionInterceptor;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.ReactionService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
@@ -35,6 +36,9 @@ public class UsrArticleController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ReactionService reactionService;
 
 	UsrArticleController(BeforeActionInterceptor beforeActionInterceptor) {
 		this.beforeActionInterceptor = beforeActionInterceptor;
@@ -105,11 +109,20 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 
-
 		Article article = articleService.getForPrintArticle(rq.getIsLoginMemberId(), id);
+		
+		ResultData usrReactionRd = reactionService.userReaction(rq.getIsLoginMemberId(), "article", id);
 
+		if (usrReactionRd.isSuccess()) {
+			model.addAttribute("userCanMakeReaction", usrReactionRd.isSuccess());
+		}
+		
 		model.addAttribute("article", article);
 
+		model.addAttribute("usrReaction", usrReactionRd.getData1());
+		model.addAttribute("addGoodRp", reactionService.isAlreadyAddGoodRp(rq.getIsLoginMemberId(), "article", id));
+		model.addAttribute("addBadRp", reactionService.isAlreadyAddBadRp(rq.getIsLoginMemberId(), "article", id));
+		
 		return "usr/article/detail";
 	}
 

@@ -10,6 +10,9 @@
 <script>
 	const params = {};
 	params.id = parseInt('${param.id }');
+	
+	var addGoodRp = ${addGoodRp};
+	var addBadRp = ${addBadRp};
 </script>
 
 <script>
@@ -31,6 +34,17 @@
 	})
 </script>
 
+<script>
+	function checkRP() {
+		if (addGoodRp == true) {
+			$('#goodBtn').toggleClass('btn-outline');
+		} else if (addBadRp==true){
+			$('#badBtn').toggleClass('btn-outline');
+		} else {
+			return;
+		}
+	}
+</script>
 
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
@@ -91,7 +105,17 @@
 		</div>
 	</div>
 	<div>${rq.currentUri}</div>
-
+	<div>LIKE / DISLIKE / ${usrReaction }</div>
+	<div class="mx-20 flex">
+		<button id="goodBtn" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">
+			👍 LIKE
+			<span class="likeCount">${article.goodReactionPoint}</span>
+		</button>
+		<button id="badBtn" class="btn btn-outline btn-error" onclick="doBad(${param.id})">
+			👎 DISLIKE
+			<span class="DislikeCount">${article.badReactionPoint}</span>
+		</button>
+	</div>
 	<div class="mx-20 flex">
 		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
 			class="btn btn-outline btn-success">👍 LIKE</a>

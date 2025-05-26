@@ -13,5 +13,9 @@ public interface ReactionRepository {
 
 	public int goodReaction(int MemberId, String relTypeCode, int relId);
 
+	public int badReaction(int MemberId, String relTypeCode, int relId);
+
+	public int getSumReactionPoint(int memberId, String relTypeCode, int relId);
+
 
 }

@@ -364,3 +364,49 @@ SET updateDate = NOW(),
     title = 'title1',
     `body` = 'body1'
 WHERE id = 5;
+
+
+
+
+########
+INSERT INTO reactionPoint
+		SET
+		regDate = NOW(),
+		updateDate =
+		NOW(),
+		memberId = 4,
+		relId =
+		1,
+		relTypeCode =
+		'artile',
+		`point` = 1;
+		
+		DELETE FROM reactionPoint
+		WHERE relId = 1
+		AND
+		MemberId=1
+		AND relTypeCode =
+		'article'
+######################################################################
+
+SELECT *
+FROM article
+ORDER BY id DESC;
+
+SELECT COUNT(*)
+FROM article
+ORDER BY id DESC;
+
+SELECT *
+FROM `member`;
+
+SELECT *
+FROM board;
+
+SELECT *
+FROM reactionPoint;
+
+
+
+
+######################################################################

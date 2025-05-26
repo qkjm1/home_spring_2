@@ -77,7 +77,40 @@ public class UsrReactionController {
 
 		return Ut.jsReplace("S-3", "좋아요", replaceUri);
 	}
-
+	
+	
 	// 싫어요를 눌렀을 때 (싫어요 인설트 / 좋아요 딜레이트)
+	@RequestMapping("/usr/reactionPoint/doBadReaction")
+	@ResponseBody
+	public Object badReaction(HttpServletRequest req, String relTypeCode, int relId, String replaceUri) {
 
+		// 로그인한 유저가 해당글에 싫어요를 누른적이 있는지 확인
+		ResultData usrReactionRd = reactionService.userReaction(rq.getIsLoginMemberId(), relTypeCode, relId);
+
+		System.err.println("usrReactionRd: " + usrReactionRd.getData1());
+
+		if (usrReactionRd.getData1().equals(-1)) {
+			ResultData Reaction = reactionService.delReaction(rq.getIsLoginMemberId(), relTypeCode, relId);
+			System.err.println("싫어요 취소");
+			return Ut.jsReplace("S-1", "싫어요 취소", replaceUri);
+
+		} else if (usrReactionRd.getData1().equals(1)) {
+			ResultData Reaction = reactionService.delReaction(rq.getIsLoginMemberId(), relTypeCode, relId);
+
+			Reaction = reactionService.badReaction(rq.getIsLoginMemberId(), relTypeCode, relId);
+			System.err.println("좋아요 취소후 싫어요");
+			return Ut.jsReplace("S-2", "좋아요 했었음", replaceUri);
+		}
+
+		ResultData badReactionRd = reactionService.badReaction(rq.getIsLoginMemberId(), relTypeCode, relId);
+
+		if (badReactionRd.isFail()) {
+
+			return ResultData.from(badReactionRd.getResultCode(), badReactionRd.getMsg());
+		}
+		System.err.println("싫어요");
+		return Ut.jsReplace("S-3", "싫어요", replaceUri);
+	}
+
+	
 }

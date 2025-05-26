@@ -43,7 +43,7 @@ public class ReactionService {
 
 	public ResultData goodReaction(int isLoginMemberId, String relTypeCode, int relId) {
 
-		System.err.println("=========================" + isLoginMemberId);
+		System.err.println("good:isLoginMemberId=============" + isLoginMemberId);
 
 		reactionRepository.goodReaction(isLoginMemberId, relTypeCode, relId);
 
@@ -54,6 +54,44 @@ public class ReactionService {
 		}
 
 		return ResultData.from("S-1", "좋아요 성공", "afterRow", afterRow);
+	}
+
+	public ResultData badReaction(int isLoginMemberId, String relTypeCode, int relId) {
+		
+		System.err.println("bad:isLoginMemberId=============" + isLoginMemberId);
+
+		reactionRepository.badReaction(isLoginMemberId, relTypeCode, relId);
+
+		int afterRow = reactionRepository.userReaction(isLoginMemberId, relTypeCode, relId);
+
+		if (afterRow != -1) {
+			return ResultData.from("F-1", "싫어요 실패");
+		}
+
+		return ResultData.from("S-1", "좋아요 성공", "afterRow", afterRow);
+	}
+	
+	
+	// 좋아요/싫어요 각 합
+	
+	public boolean isAlreadyAddGoodRp(int memberId, String relTypeCode, int relId) {
+		int getPointTypeCodeByMemberId = reactionRepository.getSumReactionPoint(memberId, relTypeCode, relId);
+
+		if (getPointTypeCodeByMemberId > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean isAlreadyAddBadRp(int memberId, String relTypeCode, int relId) {
+		int getPointTypeCodeByMemberId = reactionRepository.getSumReactionPoint(memberId, relTypeCode, relId);
+
+		if (getPointTypeCodeByMemberId < 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
