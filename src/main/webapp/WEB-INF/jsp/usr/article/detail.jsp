@@ -17,6 +17,14 @@
 
 <script>
 	function ArticleDetail__doIncreaseHitCount() {
+		
+		const localKey = 'article__' + params.id + '__OnView';
+		
+		if(localStorage.getItem(localKey)){
+			return;
+		}
+		localStorage.setItem(localKey, true);
+		
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
@@ -105,7 +113,7 @@
 		</div>
 	</div>
 	<div>${rq.currentUri}</div>
-	<div>LIKE / DISLIKE / ${usrReaction }</div>
+	<div>LIKE / DISLIKE / ${usrReaction}</div>
 	<div class="mx-20 flex">
 		<button id="goodBtn" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">
 			👍 LIKE
